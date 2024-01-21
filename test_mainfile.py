@@ -28,9 +28,14 @@ class TestUrls:
         )
 
 
+def getPython():
+    return "python3" if not os.system("python3 -c 'exit(0)'") else "python"
+
+
 def hashFile(file):
     with open(file, "rb") as fd:
         return hashlib.sha256(fd.read()).hexdigest()
+
 
 def copyNeeded(temppth):
     shutil.copy("examples/rickroll.bnd", temppth)
@@ -38,21 +43,24 @@ def copyNeeded(temppth):
     shutil.copy("helper1.py", temppth)
     shutil.copy("yt2flp.py", temppth)
 
+
 def test_converter(tmp_path):
     copyNeeded(tmp_path)
     origDir = os.path.abspath(".")
     os.chdir(tmp_path)
-    os.system("python helper1.py output.mp4 output.bnd")
+    os.system(f"{getPython()} helper1.py output.mp4 output.bnd")
     assert hashFile("rickroll.bnd") == hashFile("output.bnd")
     os.chdir(origDir)
+
 
 def test_ALL(tmp_path):
     copyNeeded(tmp_path)
     origDir = os.path.abspath(".")
     os.chdir(tmp_path)
-    os.system("python yt2flp.py https://www.youtube.com/watch?v=dQw4w9WgXcQ DEBUG")
+    os.system(f"{getPython()} yt2flp.py https://www.youtube.com/watch?v=dQw4w9WgXcQ DEBUG")
     assert hashFile("rickroll.bnd") == hashFile("output.bnd")
     os.chdir(origDir)
+
 
 class TestConsistency:
     def test_downloader(self, tmp_path):
@@ -62,7 +70,7 @@ class TestConsistency:
         download("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
         shutil.move("vid.mp4", "vid1.mp4")
         download("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
-        assert hashFile("vid.mp4")==hashFile("vid.mp4")
+        assert hashFile("vid.mp4") == hashFile("vid.mp4")
         os.chdir(origDir)
 
     def test_booster(self, tmp_path):
