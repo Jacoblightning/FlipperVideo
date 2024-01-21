@@ -83,6 +83,6 @@ class TestConsistency:
         os.chdir(tmp_path)
         os.system(f"{getPython()} helper1.py output.mp4 output.bnd")
         os.system(f"{getPython()} helper1.py output.mp4 output1.bnd")
-        assert hashFile("output1.mp4") == hashFile("output.mp4")
+        assert hashFile("output1.bnd") == hashFile("output.bnd")
         os.chdir(origDir)
 
