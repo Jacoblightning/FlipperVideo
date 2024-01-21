@@ -1,5 +1,4 @@
 import shutil
-import sys
 from sys import argv
 import os
 from yt_dlp import YoutubeDL

@@ -1,5 +1,9 @@
 .idea
 venv
 __pycache__
+.pytest_cache
+.github
+.git
+
 /*.bnd
 /*.mp4

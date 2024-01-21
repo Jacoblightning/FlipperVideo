@@ -1,2 +1,2 @@
 # examples
-Examples are coming soon
+These are example files you can use without having to convert
