@@ -3,7 +3,7 @@ A helper to install video files on a Flipper Zero (Get yours now at shop.flipper
 
 # Credits
 
-All credit for the script helper2.py goes to JacobTDC. Find the original script [here](https://gist.github.com/JacobTDC/524322a78bb0ba5008604d905ccd4270)
+All credit for the script helper1.py goes to JacobTDC. Find the original script [here](https://gist.github.com/JacobTDC/524322a78bb0ba5008604d905ccd4270)
 
 # Converting a YouTube video
 
@@ -15,7 +15,7 @@ run the `yt2flip.py` file with no arguments.
 
 To skip the downloading and convert an mp4 file directly, 
 
-run `helper2.py <inputfile.mp4> <outputfile.bnd>`
+run `helper1.py <inputfile.mp4> <outputfile.bnd>`
 
 # Transfering to flipper
 
@@ -27,7 +27,8 @@ I have included the .fap file but it is recommended to install unlshd firmware [
 
 # For the future
 
-Task|Started|Done|
----------------- |:---:| ---:|
-Publish to pypi|Yes|No
-Delete the batch file|Yes|No
+| Task                  | Started | Done |
+|-----------------------|:-------:|-----:|
+| Publish to pypi       |   No    |  No  |
+| Delete the batch file |   Yes   |  Yes |
+| Post examples         |   No    |  No  |
