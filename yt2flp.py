@@ -1,4 +1,5 @@
 import shutil
+import sys
 from sys import argv
 import os
 from yt_dlp import YoutubeDL
@@ -33,29 +34,63 @@ yt_options = {
 }
 
 
-if len(argv) < 2:
-    raise RuntimeError("NEED MORE ARGUMENTS, IM HUNGRY 4 THE ARGUMENTS")
+def startup_and_options(DEBUG=False):
+    if not DEBUG:
+        if len(argv) < 3:
+            if (len(argv) == 2 and "DEBUG" in argv) or len(argv) < 2:
+                raise RuntimeError("NEED MORE ARGUMENTS, IM HUNGRY 4 THE ARGUMENTS")
+    DEBUG = "DEBUG" in argv or DEBUG
+    boost = False
+    if DEBUG or input("Would you like to boost the volume? Y/N").lower() == "y":
+        boost = True
+    if not DEBUG:
+        name = input("What should the file name be? ")
+    else:
+        name = "output"
+    return {"boost": boost, "debug": DEBUG, "name": name}
 
-b = False
-if input("Would you like to boost the volume? Y/N").lower() == "y":
-    b = True
-short = (
-    argv[1]
-    .replace("youtube.com/watch?v=", "youtu.be/")
-    .replace("https://www.", "https://")
-)
-if "si=" in short:
-    short = short.split("si=")[0][:-1]
-name = input("What should the file name be? ")
 
-with YoutubeDL(yt_options) as ydl:
-    ydl.download([short])
-if b:
-    os.system('ffmpeg -i vid.mp4 -af "volume=3" -c:v copy output.mp4')
-    os.unlink("vid.mp4")
-else:
-    shutil.move("vid.mp4", "output.mp4")
+def stripurl(url):
+    short = url.replace("youtube.com/watch?v=", "youtu.be/").replace(
+        "https://www.", "https://"
+    )
+    if "si=" in short:
+        short = short.split("si=")[0][:-1]
+    return short
 
-os.system(f"python helper1.py output.mp4 {name}.bnd")
-if input("Delete Intermediate File? [N/y]").strip().lower().startswith("y"):
-    os.unlink("output.mp4")
+
+def download(url):
+    shorturl = stripurl(url)
+    with YoutubeDL(yt_options) as ydl:
+        ydl.download([shorturl])
+
+
+def boost(doIt):
+    if doIt:
+        os.system('ffmpeg -i vid.mp4 -af "volume=3" -c:v copy output.mp4')
+        os.unlink("vid.mp4")
+    else:
+        shutil.move("vid.mp4", "output.mp4")
+
+
+def convert(toName):
+    os.system(f"python helper1.py output.mp4 {toName}.bnd")
+
+
+def main():
+    options = startup_and_options()
+    boo = options["boost"]
+    debug = options["debug"]
+    name = options["name"]
+    url = argv[1]
+    download(url)
+    boost(boo)
+    convert(name)
+    if debug or input("Delete Intermediate File? [N/y]").strip().lower().startswith(
+        "y"
+    ):
+        os.unlink("output.mp4")
+
+
+if __name__ == "__main__":
+    main()
