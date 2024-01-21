@@ -44,15 +44,6 @@ def copyNeeded(temppth):
     shutil.copy("yt2flp.py", temppth)
 
 
-def test_converter(tmp_path):
-    copyNeeded(tmp_path)
-    origDir = os.path.abspath(".")
-    os.chdir(tmp_path)
-    os.system(f"{getPython()} helper1.py output.mp4 output.bnd")
-    assert hashFile("rickroll.bnd") == hashFile("output.bnd")
-    os.chdir(origDir)
-
-
 def test_ALL(tmp_path):
     copyNeeded(tmp_path)
     origDir = os.path.abspath(".")
@@ -85,3 +76,13 @@ class TestConsistency:
         boost(True)
         assert hashFile("output1.mp4") == hashFile("output.mp4")
         os.chdir(origDir)
+
+    def test_converter(self, tmp_path):
+        copyNeeded(tmp_path)
+        origDir = os.path.abspath(".")
+        os.chdir(tmp_path)
+        os.system(f"{getPython()} helper1.py output.mp4 output.bnd")
+        os.system(f"{getPython()} helper1.py output.mp4 output1.bnd")
+        assert hashFile("output1.mp4") == hashFile("output.mp4")
+        os.chdir(origDir)
+
