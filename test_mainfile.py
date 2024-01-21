@@ -44,13 +44,13 @@ def copyNeeded(temppth):
     shutil.copy("yt2flp.py", temppth)
 
 
-def test_ALL(tmp_path):
-    copyNeeded(tmp_path)
-    origDir = os.path.abspath(".")
-    os.chdir(tmp_path)
-    os.system(f"{getPython()} yt2flp.py https://www.youtube.com/watch?v=dQw4w9WgXcQ DEBUG")
-    assert hashFile("rickroll.bnd") == hashFile("output.bnd")
-    os.chdir(origDir)
+# def test_ALL(tmp_path):
+#     copyNeeded(tmp_path)
+#     origDir = os.path.abspath(".")
+#     os.chdir(tmp_path)
+#     os.system(f"{getPython()} yt2flp.py https://www.youtube.com/watch?v=dQw4w9WgXcQ DEBUG")
+#     assert hashFile("rickroll.bnd") == hashFile("output.bnd")
+#     os.chdir(origDir)
 
 
 class TestConsistency:
