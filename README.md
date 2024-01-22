@@ -29,6 +29,6 @@ I have included the .fap file but it is recommended to install unlshd firmware [
 
 | Task                  | Started | Done |
 |-----------------------|:-------:|-----:|
-| Publish to pypi       |   No    |  No  |
+| Publish to pypi       |   Yes   |  No  |
 | Delete the batch file |   Yes   |  Yes |
 | Post examples         |   No    |  No  |
