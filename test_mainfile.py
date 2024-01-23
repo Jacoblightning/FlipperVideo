@@ -12,8 +12,8 @@ def test_startup():
 class TestUrls:
     def test_valid_url(self):
         assert (
-                stripurl("https://www.youtube.com/watch?v=EIyixC9NsLI&si=ksjrhgksjrbg")
-                == "https://youtu.be/EIyixC9NsLI"
+            stripurl("https://www.youtube.com/watch?v=EIyixC9NsLI&si=ksjrhgksjrbg")
+            == "https://youtu.be/EIyixC9NsLI"
         )
 
     def test_random_url(self):
@@ -21,10 +21,10 @@ class TestUrls:
 
         urldata = secrets.token_hex(15)
         assert (
-                stripurl(
-                    f"https://www.youtube.com/watch?v={urldata}&si={secrets.token_hex(10)}"
-                )
-                == f"https://youtu.be/{urldata}"
+            stripurl(
+                f"https://www.youtube.com/watch?v={urldata}&si={secrets.token_hex(10)}"
+            )
+            == f"https://youtu.be/{urldata}"
         )
 
 
@@ -85,4 +85,3 @@ class TestConsistency:
         os.system(f"{getPython()} helper1.py output.mp4 output1.bnd")
         assert hashFile("output1.bnd") == hashFile("output.bnd")
         os.chdir(origDir)
-

@@ -9,7 +9,7 @@ All credit for the script helper1.py goes to JacobTDC. Find the original script 
 
 To convert a YouTube video to a flipper file:
 
-run the `yt2flip.py` file with no arguments.
+run the `yt2flip.py <youtube url>`
 
 # Converting an mp4
 
@@ -27,8 +27,10 @@ I have included the .fap file but it is recommended to install unlshd firmware [
 
 # For the future
 
-| Task                  | Started | Done |
-|-----------------------|:-------:|-----:|
-| Publish to pypi       |   Yes   |  No  |
-| Delete the batch file |   Yes   |  Yes |
-| Post examples         |   No    |  No  |
+| Task                    | Started | Done |
+|-------------------------|:-------:|-----:|
+| Publish to pypi         |   Yes   |   No |
+| Delete the batch file   |   Yes   |  Yes |
+| Post examples           |   No    |   No |
+| Add a GUI               |   No    |   No |
+| Fix the argument parser |   No    |   No |
