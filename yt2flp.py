@@ -36,17 +36,24 @@ yt_options = {
 
 def startup_and_options(sysargs):
     parser = argparse.ArgumentParser()
-    parser.add_argument("url", help="The youtube url to download and convert")
-    parser.add_argument("--debug", action='store_true', help="Activate debug mode which asks for no input")
+    subparsers = parser.add_subparsers(required=True)
+    guimode = subparsers.add_parser("GUI", help="GUI mode")
+    guimode.set_defaults(mode="GUI")
+    climode = subparsers.add_parser("CLI", help="CLI mode")
+    climode.set_defaults(mode="CLI")
+    climode.add_argument("url", help="The youtube url to download and convert")
+    climode.add_argument("--debug", action='store_true', help="Activate debug mode which asks for no input")
     args = parser.parse_args(sysargs)
-    if not args.debug:
-        if input("Would you like to boost the volume? Y/N").lower() == "y":
-            boost = True
-            name = input("What should the file name be? ")
-    else:
-        name = "DEBUGoutput"
-        boost = False
-    return {"boost": boost, "debug": args.debug, "name": name, "url": args.url}
+    if args.mode == "CLI":
+        if not args.debug:
+            if input("Would you like to boost the volume? Y/N").lower() == "y":
+                boost = True
+                name = input("What should the file name be? ")
+        else:
+            name = "DEBUGoutput"
+            boost = False
+        return {"boost": boost, "debug": args.debug, "name": name, "url": args.url, "mode":"CLI"}
+    return {"mode":"GUI"}
 
 
 def stripurl(url):
@@ -75,20 +82,27 @@ def boost(doIt):
 def convert(toName):
     os.system(f"python helper1.py output.mp4 {toName}.bnd")
 
+def gui():
+    raise NotImplementedError("Working on it.")
+
+
 
 def main():
     options = startup_and_options(argv[1:])
-    boo = options["boost"]
-    debug = options["debug"]
-    name = options["name"]
-    url = options["url"]
-    download(url)
-    boost(boo)
-    convert(name)
-    if debug or input("Delete Intermediate File? [N/y]").strip().lower().startswith(
-            "y"
-    ):
-        os.unlink("output.mp4")
+    if options["mode"] == "CLI":
+        boo = options["boost"]
+        debug = options["debug"]
+        name = options["name"]
+        url = options["url"]
+        download(url)
+        boost(boo)
+        convert(name)
+        if debug or input("Delete Intermediate File? [N/y]").strip().lower().startswith(
+                "y"
+        ):
+            os.unlink("output.mp4")
+    else:
+        gui()
 
 
 if __name__ == "__main__":

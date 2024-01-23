@@ -6,7 +6,7 @@ import os
 
 
 def test_startup():
-    assert startup_and_options(["you", "--debug"]) == {"boost": False, "debug": True, "name": "DEBUGoutput", "url":"you"}
+    assert startup_and_options(["CLI", "you", "--debug"]) == {"boost": False, "debug": True, "name": "DEBUGoutput", "url":"you", "mode":"CLI"}
 
 
 class TestUrls:
