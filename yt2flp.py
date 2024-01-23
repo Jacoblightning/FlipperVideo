@@ -2,6 +2,7 @@ import shutil
 from sys import argv
 import os
 from yt_dlp import YoutubeDL
+import argparse
 
 yt_options = {
     "extract_flat": "discard_in_playlist",
@@ -33,20 +34,19 @@ yt_options = {
 }
 
 
-def startup_and_options(DEBUG=False):
-    if not DEBUG:
-        if len(argv) < 3:
-            if (len(argv) == 2 and "DEBUG" in argv) or len(argv) < 2:
-                raise RuntimeError("NEED MORE ARGUMENTS, IM HUNGRY 4 THE ARGUMENTS")
-    DEBUG = "DEBUG" in argv or DEBUG
-    boost = False
-    if DEBUG or input("Would you like to boost the volume? Y/N").lower() == "y":
-        boost = True
-    if not DEBUG:
-        name = input("What should the file name be? ")
+def startup_and_options(sysargs):
+    parser = argparse.ArgumentParser()
+    parser.add_argument("url", help="The youtube url to download and convert")
+    parser.add_argument("--debug", action='store_true', help="Activate debug mode which asks for no input")
+    args = parser.parse_args(sysargs)
+    if not args.debug:
+        if input("Would you like to boost the volume? Y/N").lower() == "y":
+            boost = True
+            name = input("What should the file name be? ")
     else:
-        name = "output"
-    return {"boost": boost, "debug": DEBUG, "name": name}
+        name = "DEBUGoutput"
+        boost = False
+    return {"boost": boost, "debug": args.debug, "name": name, "url": args.url}
 
 
 def stripurl(url):
@@ -77,16 +77,16 @@ def convert(toName):
 
 
 def main():
-    options = startup_and_options()
+    options = startup_and_options(argv[1:])
     boo = options["boost"]
     debug = options["debug"]
     name = options["name"]
-    url = argv[1]
+    url = options["url"]
     download(url)
     boost(boo)
     convert(name)
     if debug or input("Delete Intermediate File? [N/y]").strip().lower().startswith(
-        "y"
+            "y"
     ):
         os.unlink("output.mp4")
 

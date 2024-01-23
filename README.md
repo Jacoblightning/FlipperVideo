@@ -23,7 +23,7 @@ When your file is done, move it to the flippers sd card into apps_data/video_pla
 
 # Things to note
 
-I have included the .fap file but it is recommended to install unlshd firmware [here](https://github.com/DarkFlippers/unleashed-firmware) (If installing Unlshd firmware, remember to install the extra apps version or it will not install the vieo_player)
+I have included the .fap file, but it is recommended to install unlshd firmware [here](https://github.com/DarkFlippers/unleashed-firmware) (If installing Unlshd firmware, remember to install the extra apps version or it will not install the vieo_player)
 
 # For the future
 
@@ -31,6 +31,6 @@ I have included the .fap file but it is recommended to install unlshd firmware [
 |-------------------------|:-------:|-----:|
 | Publish to pypi         |   Yes   |   No |
 | Delete the batch file   |   Yes   |  Yes |
-| Post examples           |   No    |   No |
+| Post examples           |   Yes   |  Yes |
 | Add a GUI               |   No    |   No |
 | Fix the argument parser |   No    |   No |
