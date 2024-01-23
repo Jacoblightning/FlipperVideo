@@ -33,4 +33,4 @@ I have included the .fap file, but it is recommended to install unlshd firmware 
 | Delete the batch file   |   Yes   |  Yes |
 | Post examples           |   Yes   |  Yes |
 | Add a GUI               |   No    |   No |
-| Fix the argument parser |   No    |   No |
+| Fix the argument parser |   Yes   |  Yes |
