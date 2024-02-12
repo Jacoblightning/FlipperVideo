@@ -200,6 +200,8 @@ audio_process = (
     input.audio
     # normalize audio to prevent peaking
     .filter("loudnorm")
+    # adjust volume
+    .filter("volume", volume=6.0)
     # output raw 8-bit audio
     .output("pipe:", format="u8", acodec="pcm_u8", ac=1, ar=sample_rate)
     # only display errors
